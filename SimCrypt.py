@@ -95,7 +95,7 @@ def menu():
 			
 			labelpass = tk.Label(frame1, bg="black", fg="white", text="Password: ", font=("Times", 7)).pack(fill=tk.X)
 			
-			passentry = tk.Entry(frame1)
+			passentry = tk.Entry(frame1, justify="center", font=("Times", 7))
 			passentry.pack()
 			
 			empty = tk.Label(frame1, bg="black").pack(fill=tk.X)
@@ -199,7 +199,7 @@ def menu():
 			
 			labelpass = tk.Label(frame1, bg="black", fg="white", text="Password: ", font=("Times", 7)).pack(fill=tk.X)
 			
-			passentry = tk.Entry(frame1)
+			passentry = tk.Entry(frame1, justify="center", font=("Times", 7))
 			passentry.pack()
 			
 			empty = tk.Label(frame1, bg="black").pack(fill=tk.X)
