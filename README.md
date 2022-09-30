@@ -1,9 +1,12 @@
-# SimCrypt
-(Encrypt-Decrypt text)
+![This is an image](https://raw.githubusercontent.com/Uriel-SG/SimCrypt/main/simcrypt.png)
 
-SimCrypt stands for:
+###### *(Encrypt-Decrypt text)*
+
+"***SimCrypt***" stands for:
 
     - Simmetric Criptography;
     - Simple Criptography;
 
-Simple python program for encrypting and decrypting text using a simmetric key.
+It's a simple python program for encrypting and decrypting text using a *simmetric key*.
+
+
