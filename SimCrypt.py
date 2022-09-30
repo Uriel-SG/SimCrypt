@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter.messagebox import showerror
 from kivy.core.clipboard import Clipboard
 import secrets
 from base64 import urlsafe_b64encode as b64e, urlsafe_b64decode as b64d
@@ -145,32 +146,37 @@ def menu():
 				messagetodec.insert(tk.END, Clipboard.paste())
 				
 			def decrypt():
-				#Functions
-				encryptedmessage = ""
-				password = ""
-				decryptedmessage = ""
-				
-				backend = default_backend()
-				iterations = 100_000
-
-				def _derive_key(password: bytes, salt: bytes, iterations: int = iterations) -> bytes:
-					kdf = PBKDF2HMAC(
-						algorithm=hashes.SHA256(), length=32, salt=salt,
-        			iterations=iterations, backend=backend)
-					return b64e(kdf.derive(password))
-    				
-				def password_decrypt(token: bytes, password: str) -> bytes:
-					    decoded = b64d(token)
-					    salt, iter, token = decoded[:16], decoded[16:20], b64e(decoded[20:])
-					    iterations = int.from_bytes(iter, 'big')
-					    key = _derive_key(password.encode(), salt, iterations)
-					    return Fernet(key).decrypt(token)
-				
-				encryptedmessage = messagetodec.get("1.0", tk.END)
-				password = passentry.get()
-				decryptedmessage = password_decrypt(encryptedmessage, password).decode()
-				decrypted_text["state"] = "normal"
-				decrypted_text.insert(tk.END, decryptedmessage)
+				try:
+					#Functions
+					encryptedmessage = ""
+					password = ""
+					decryptedmessage = ""
+					
+					backend = default_backend()
+					iterations = 100_000
+	
+					def _derive_key(password: bytes, salt: bytes, iterations: int = iterations) -> bytes:
+						kdf = PBKDF2HMAC(
+							algorithm=hashes.SHA256(), length=32, salt=salt,
+	        			iterations=iterations, backend=backend)
+						return b64e(kdf.derive(password))
+	    				
+					def password_decrypt(token: bytes, password: str) -> bytes:
+						    decoded = b64d(token)
+						    salt, iter, token = decoded[:16], decoded[16:20], b64e(decoded[20:])
+						    iterations = int.from_bytes(iter, 'big')
+						    key = _derive_key(password.encode(), salt, iterations)
+						    return Fernet(key).decrypt(token)
+					
+					encryptedmessage = messagetodec.get("1.0", tk.END)
+					password = passentry.get()
+					decryptedmessage = password_decrypt(encryptedmessage, password).decode()
+					decrypted_text["state"] = "normal"
+					decrypted_text.insert(tk.END, decryptedmessage)
+				except:
+					showerror(title="Error", message="Wrong password!")
+					refresh()
+					
 			
 			def exit_decrypt():
 				window.destroy()
