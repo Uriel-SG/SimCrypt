@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showerror
-from kivy.core.clipboard import Clipboard
+import pyperclip
 import secrets
 from base64 import urlsafe_b64encode as b64e, urlsafe_b64decode as b64d
 from cryptography.fernet import Fernet
@@ -73,7 +73,7 @@ def menu():
 				
 			def copy_to_clipboard():
 				x = encrypted_text.get("1.0", tk.END)
-				Clipboard.copy(x)
+				pyperclip.copy(x)
 		
 			#Widgets
 			buttons_style = ttk.Style()
@@ -143,7 +143,7 @@ def menu():
 			frame2.pack()
 			
 			def paste():
-				messagetodec.insert(tk.END, Clipboard.paste())
+				messagetodec.insert(tk.END, pyperclip.paste())
 				
 			def decrypt():
 				try:
