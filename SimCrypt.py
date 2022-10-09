@@ -13,7 +13,7 @@ def menu():
 	finestra = tk.Tk()
 	finestra.title("SimEncryptor")
 	finestra.configure(bg="black")
-	#finestra.iconbitmap("icouriel.ico")
+	finestra.iconbitmap("icosimcrypt.ico")
 	frame1 = tk.Frame(finestra, bg="black")
 	frame1.pack()
 	
@@ -30,7 +30,7 @@ def menu():
 			window = tk.Tk()
 			window.title("SimEncrypt")
 			window.configure(bg="black")
-			#window.iconbitmap("icouriel.ico")
+			window.iconbitmap("icosimcrypt.ico")
 			frame1 = tk.Frame(window, bg="black")
 			frame1.pack()
 			frame2 = tk.Frame(window, bg="black")
@@ -46,7 +46,7 @@ def menu():
 
 				def _derive_key(password: bytes, salt: bytes, iterations: int = iterations) -> bytes:
 					kdf = PBKDF2HMAC(
-        algorithm=hashes.SHA256(), length=32, salt=salt,
+		algorithm=hashes.SHA256(), length=32, salt=salt,
 					iterations=iterations, backend=backend)
 					return b64e(kdf.derive(password))
 
@@ -54,12 +54,12 @@ def menu():
 					salt = secrets.token_bytes(16)
 					key = _derive_key(password.encode(), salt, iterations)
 					return b64e(
-        				b'%b%b%b' % (
-            				salt,
-            				iterations.to_bytes(4, 'big'),
-            				b64d(Fernet(key).encrypt(message)),
-        					)
-    					)
+						b'%b%b%b' % (
+							salt,
+							iterations.to_bytes(4, 'big'),
+							b64d(Fernet(key).encrypt(message)),
+							)
+						)
 
 				messagetoencrypt = message.get("1.0", tk.END)
 				password = passentry.get()
@@ -77,26 +77,26 @@ def menu():
 		
 			#Widgets
 			buttons_style = ttk.Style()
-			buttons_style.configure('my.TButton', font=('Times', 8))
-			buttons_style.configure('big.TButton', font=('Times', 9, 'bold'))
+			buttons_style.configure('my.TButton', font=('Times', 10))
+			buttons_style.configure('big.TButton', font=('Times', 11, 'bold'))
 			
 			title = tk.Label(frame1, text="Encrypt",
 				fg= "white",
 				bg= "black",
-				font=("Times", 14, "bold"))
+				font=("Times", 18, "bold"))
 			title.pack(fill=tk.X)
 			
-			message_label = tk.Label(frame1, text="\nWrite here the message to encrypt: ", bg="black", fg="white", font=("Times", 7))
+			message_label = tk.Label(frame1, text="\nWrite here the message to encrypt: ", bg="black", fg="white", font=("Times", 14))
 			message_label.pack(fill=tk.X)
 			
-			message = tk.Text(frame1, padx=15, pady=15, height=7, font=("Times", 7), wrap="word")
+			message = tk.Text(frame1, padx=15, pady=15, height=7, font=("Times", 14), wrap="word")
 			message.pack()
 			
 			empty = tk.Label(frame1, bg="black").pack(fill=tk.X)	
 			
-			labelpass = tk.Label(frame1, bg="black", fg="white", text="Password: ", font=("Times", 7)).pack(fill=tk.X)
+			labelpass = tk.Label(frame1, bg="black", fg="white", text="Password: ", font=("Times", 14)).pack(fill=tk.X)
 			
-			passentry = tk.Entry(frame1, justify="center", font=("Times", 7))
+			passentry = tk.Entry(frame1, justify="center", font=("Times", 11))
 			passentry.pack()
 			
 			empty = tk.Label(frame1, bg="black").pack(fill=tk.X)
@@ -106,7 +106,7 @@ def menu():
 			
 			empty = tk.Label(frame1,bg="black").pack(fill=tk.X)
 			
-			encrypted_text = tk.Text(frame1, padx=15, pady=15, height=7, font=("Times", 7), wrap="word", state="disabled")
+			encrypted_text = tk.Text(frame1, padx=15, pady=15, height=7, font=("Times", 11), wrap="word", state="disabled")
 			encrypted_text.pack()
 			
 			copybutt = ttk.Button(frame1, text="Copy", style="my.TButton", command=copy_to_clipboard)
@@ -136,7 +136,7 @@ def menu():
 			window = tk.Tk()
 			window.title("SimEncrypt")
 			window.configure(bg="black")
-			#window.iconbitmap("icouriel.ico")
+			window.iconbitmap("icosimcrypt.ico")
 			frame1 = tk.Frame(window, bg="black")
 			frame1.pack()
 			frame2 = tk.Frame(window, bg="black")
@@ -158,15 +158,15 @@ def menu():
 					def _derive_key(password: bytes, salt: bytes, iterations: int = iterations) -> bytes:
 						kdf = PBKDF2HMAC(
 							algorithm=hashes.SHA256(), length=32, salt=salt,
-	        			iterations=iterations, backend=backend)
+						iterations=iterations, backend=backend)
 						return b64e(kdf.derive(password))
-	    				
+						
 					def password_decrypt(token: bytes, password: str) -> bytes:
-						    decoded = b64d(token)
-						    salt, iter, token = decoded[:16], decoded[16:20], b64e(decoded[20:])
-						    iterations = int.from_bytes(iter, 'big')
-						    key = _derive_key(password.encode(), salt, iterations)
-						    return Fernet(key).decrypt(token)
+							decoded = b64d(token)
+							salt, iter, token = decoded[:16], decoded[16:20], b64e(decoded[20:])
+							iterations = int.from_bytes(iter, 'big')
+							key = _derive_key(password.encode(), salt, iterations)
+							return Fernet(key).decrypt(token)
 					
 					encryptedmessage = messagetodec.get("1.0", tk.END)
 					password = passentry.get()
@@ -184,13 +184,13 @@ def menu():
 				
 			#Widgets
 			buttons_style = ttk.Style()
-			buttons_style.configure('my.TButton', font=('Times', 8))
-			buttons_style.configure('big.TButton', font=('Times', 9, 'bold'))
+			buttons_style.configure('my.TButton', font=('Times', 10))
+			buttons_style.configure('big.TButton', font=('Times', 11, 'bold'))
 			
 			title = tk.Label(frame1, text="Decrypt",
 				fg= "white",
 				bg= "black",
-				font=("Times", 14, "bold"))
+				font=("Times", 18, "bold"))
 			title.pack(fill=tk.X)
 			
 			empty = tk.Label(frame1, bg="black").pack(fill=tk.X)
@@ -198,14 +198,14 @@ def menu():
 			pastebutt = ttk.Button(frame1, text="Paste", style="my.TButton", command=paste)
 			pastebutt.pack()
 			
-			messagetodec = tk.Text(frame1, padx=15, pady=15, height=7, font=("Times", 7), wrap="word")
+			messagetodec = tk.Text(frame1, padx=15, pady=15, height=7, font=("Times", 11), wrap="word")
 			messagetodec.pack()
 			
 			empty = tk.Label(frame1, bg="black").pack(fill=tk.X)	
 			
-			labelpass = tk.Label(frame1, bg="black", fg="white", text="Password: ", font=("Times", 7)).pack(fill=tk.X)
+			labelpass = tk.Label(frame1, bg="black", fg="white", text="Password: ", font=("Times", 12)).pack(fill=tk.X)
 			
-			passentry = tk.Entry(frame1, justify="center", font=("Times", 7))
+			passentry = tk.Entry(frame1, justify="center", font=("Times", 11))
 			passentry.pack()
 			
 			empty = tk.Label(frame1, bg="black").pack(fill=tk.X)
@@ -215,7 +215,7 @@ def menu():
 			
 			empty = tk.Label(frame1,bg="black").pack(fill=tk.X)
 			
-			decrypted_text = tk.Text(frame1, padx=15, pady=15, height=7, font=("Times", 7), wrap="word", state="disabled")
+			decrypted_text = tk.Text(frame1, padx=15, pady=15, height=7, font=("Times", 11), wrap="word", state="disabled")
 			decrypted_text.pack()
 			
 			empty = tk.Label(frame2, text="\n", bg="black").pack(fill=tk.X)
@@ -232,11 +232,11 @@ def menu():
 		
 	#Widgets
 	buttons_style = ttk.Style()
-	buttons_style.configure('my.TButton', font=('Times', 8))
+	buttons_style.configure('my.TButton', font=('Times', 10))
 	
 	#Image
 	logo = tk.PhotoImage(file="simcrypt.png")
-	smallerlogo = logo.subsample(1, 1)
+	smallerlogo = logo.subsample(2, 2)
 	uriel = tk.Label(image=smallerlogo, bg='black')
 	uriel.pack(fill=tk.X)
 	
@@ -270,7 +270,7 @@ def menu():
 	uriel2 = tk.Label(image=smallerlogo2, bg='black')
 	uriel2.pack(fill=tk.X)
 	
-	powered = tk.Label(text="powered by Uriel-SG", font=("Calibri", 5), bg="grey")
+	powered = tk.Label(text="powered by Uriel-SG", font=("Calibri", 8), bg="grey")
 	powered.pack(fill=tk.X, side=tk.BOTTOM)
 	
 	empty = tk.Label(bg="black")
